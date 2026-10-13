@@ -17,6 +17,6 @@ Before running the project, make sure you have:
 ## Run Locally
 ```bash
 git clone https://github.com/jimmyabenoja-sudo/abenoja_project.git
-cd khen_project
+cd abenoja_project
 flutter pub get
 flutter run -d chrome
