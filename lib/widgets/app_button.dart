@@ -9,6 +9,7 @@ class AppButton extends StatelessWidget {
     this.onPressed,
     this.icon,
     this.busy = false,
+    this.colors,
   });
 
   final String label;
@@ -18,6 +19,9 @@ class AppButton extends StatelessWidget {
   /// When true, shows a progress spinner in place of the icon and ignores
   /// taps, so duplicate submissions are prevented while a task is pending.
   final bool busy;
+
+  /// Optional gradient override; defaults to the SmartTrack brand gradient.
+  final List<Color>? colors;
 
   @override
   Widget build(BuildContext context) {
@@ -64,15 +68,17 @@ class AppButton extends StatelessWidget {
       opacity: busy ? 0.75 : 1,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: AppConstants.brandGradient,
+          gradient: LinearGradient(
+            colors: colors ?? AppConstants.brandGradient,
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
           borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
-              color: AppConstants.brandGradient.first.withValues(alpha: 0.35),
+              color: (colors ?? AppConstants.brandGradient)
+                  .first
+                  .withValues(alpha: 0.35),
               blurRadius: 8,
               offset: const Offset(0, 3),
             ),
