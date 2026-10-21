@@ -231,7 +231,19 @@ class _Sidebar extends StatelessWidget {
                     borderRadius: BorderRadius.circular(24),
                     child: InkWell(
                       borderRadius: BorderRadius.circular(24),
-                      onTap: () {},
+                      onTap: () {
+                        if (navLabels[index] == 'Reports') {
+                          Navigator.pushNamed(context, AppRoutes.report);
+                        } else if (navLabels[index] != 'Dashboard') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                '${navLabels[index]} module is coming soon.',
+                              ),
+                            ),
+                          );
+                        }
+                      },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 14,

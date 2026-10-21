@@ -43,6 +43,21 @@ void main() {
     expect(find.text('No reports yet'), findsOneWidget);
   });
 
+  testWidgets('Sidebar Reports menu opens the Report Form',
+      (WidgetTester tester) async {
+    await pumpApp(tester);
+
+    await tester.tap(find.text('Sign In'));
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Reports'));
+    await tester.tap(find.text('Reports'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Travel Report Form'), findsOneWidget);
+    expect(find.text('No reports yet'), findsOneWidget);
+  });
+
   testWidgets('Empty form shows field-level validation errors', (
     WidgetTester tester,
   ) async {
