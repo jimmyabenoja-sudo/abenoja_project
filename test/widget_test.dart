@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -37,7 +39,7 @@ void main() {
     await tester.tap(find.text('File a Report'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Report Form'), findsOneWidget);
+    expect(find.text('Travel Report Form'), findsOneWidget);
     expect(find.text('No reports yet'), findsOneWidget);
   });
 
@@ -52,7 +54,7 @@ void main() {
     await tester.tap(find.text('Reports'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Report Form'), findsOneWidget);
+    expect(find.text('Travel Report Form'), findsOneWidget);
     expect(find.text('No reports yet'), findsOneWidget);
   });
 
@@ -90,10 +92,9 @@ void main() {
 
     await tester.ensureVisible(find.text('Report Title'));
     await tester.enterText(find.byType(TextFormField).at(0), 'Delayed flight');
-    await tester.ensureVisible(find.byType(DropdownButtonFormField<String>));
-    await tester.tap(find.byType(DropdownButtonFormField<String>));
+    await tester.tap(find.text('Category'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Incident Report').last);
+    await tester.tap(find.text('Travel Record'));
     await tester.pumpAndSettle();
     await tester.enterText(
       find.byType(TextFormField).at(1),
@@ -137,10 +138,9 @@ void main() {
       find.byType(TextFormField).at(0),
       'Lost baggage claim',
     );
-    await tester.ensureVisible(find.byType(DropdownButtonFormField<String>));
-    await tester.tap(find.byType(DropdownButtonFormField<String>));
+    await tester.tap(find.text('Category'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Incident Report').last);
+    await tester.tap(find.text('Travel Record'));
     await tester.pumpAndSettle();
     await tester.enterText(
       find.byType(TextFormField).at(1),
