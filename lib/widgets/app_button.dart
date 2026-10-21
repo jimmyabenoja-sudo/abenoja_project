@@ -8,11 +8,16 @@ class AppButton extends StatelessWidget {
     required this.label,
     this.onPressed,
     this.icon,
+    this.busy = false,
   });
 
   final String label;
   final VoidCallback? onPressed;
   final IconData? icon;
+
+  /// When true, shows a progress spinner in place of the icon and ignores
+  /// taps, so duplicate submissions are prevented while a task is pending.
+  final bool busy;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,23 @@ class AppButton extends StatelessWidget {
 
     final Widget labelWidget = Text(label);
 
-    final Widget buttonChild = icon == null
+    final Widget buttonChild = busy
+        ? Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(
+                width: 18,
+                height: 18,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(width: 10),
+              labelWidget,
+            ],
+          )
+        : icon == null
         ? labelWidget
         : Row(
             mainAxisSize: MainAxisSize.min,
@@ -39,26 +60,29 @@ class AppButton extends StatelessWidget {
             ],
           );
 
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: AppConstants.brandGradient,
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
-        borderRadius: BorderRadius.circular(30),
-        boxShadow: [
-          BoxShadow(
-            color: AppConstants.brandGradient.first.withValues(alpha: 0.35),
-            blurRadius: 8,
-            offset: const Offset(0, 3),
+    return Opacity(
+      opacity: busy ? 0.75 : 1,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: AppConstants.brandGradient,
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
           ),
-        ],
-      ),
-      child: FilledButton(
-        onPressed: onPressed,
-        style: style,
-        child: buttonChild,
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [
+            BoxShadow(
+              color: AppConstants.brandGradient.first.withValues(alpha: 0.35),
+              blurRadius: 8,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: FilledButton(
+          onPressed: busy ? null : onPressed,
+          style: style,
+          child: buttonChild,
+        ),
       ),
     );
   }

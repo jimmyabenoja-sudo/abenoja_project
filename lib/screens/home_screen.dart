@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/app_constants.dart';
+import '../routes/app_routes.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -113,43 +114,44 @@ class DashboardScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
                         LayoutBuilder(
-                          builder: (BuildContext context,
-                                  BoxConstraints constraints) =>
-                              constraints.maxWidth >= 850
-                                  ? Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          flex: 3,
-                                          child: _RecentRecordsCard(
-                                              records: _records),
-                                        ),
-                                        const SizedBox(width: 16),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Column(
-                                            children: [
-                                              _AnnouncementsCard(
-                                                  items: _announcements),
-                                              const SizedBox(height: 16),
-                                              _QuickActionsCard(
-                                                  accent: _accent),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  : Column(
-                                      children: [
-                                        _RecentRecordsCard(records: _records),
-                                        const SizedBox(height: 16),
-                                        _AnnouncementsCard(
-                                            items: _announcements),
-                                        const SizedBox(height: 16),
-                                        _QuickActionsCard(accent: _accent),
-                                      ],
+                          builder:
+                              (
+                                BuildContext context,
+                                BoxConstraints constraints,
+                              ) => constraints.maxWidth >= 850
+                              ? Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 3,
+                                      child: _RecentRecordsCard(
+                                        records: _records,
+                                      ),
                                     ),
+                                    const SizedBox(width: 16),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Column(
+                                        children: [
+                                          _AnnouncementsCard(
+                                            items: _announcements,
+                                          ),
+                                          const SizedBox(height: 16),
+                                          _QuickActionsCard(accent: _accent),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Column(
+                                  children: [
+                                    _RecentRecordsCard(records: _records),
+                                    const SizedBox(height: 16),
+                                    _AnnouncementsCard(items: _announcements),
+                                    const SizedBox(height: 16),
+                                    _QuickActionsCard(accent: _accent),
+                                  ],
+                                ),
                         ),
                       ],
                     ),
@@ -220,8 +222,10 @@ class _Sidebar extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 final bool selected = index == 0;
                 return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 2,
+                  ),
                   child: Material(
                     color: selected ? Colors.white : Colors.transparent,
                     borderRadius: BorderRadius.circular(24),
@@ -230,7 +234,9 @@ class _Sidebar extends StatelessWidget {
                       onTap: () {},
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 14, vertical: 12),
+                          horizontal: 14,
+                          vertical: 12,
+                        ),
                         child: Row(
                           children: [
                             Icon(
@@ -265,19 +271,15 @@ class _Sidebar extends StatelessWidget {
           Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: () => Navigator.pushNamedAndRemoveUntil(
-                  context, '/', (_) => false),
+              onTap: () =>
+                  Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false),
               child: const Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 26, vertical: 16),
+                padding: EdgeInsets.symmetric(horizontal: 26, vertical: 16),
                 child: Row(
                   children: [
                     Icon(Icons.logout, color: Colors.white70, size: 20),
                     SizedBox(width: 12),
-                    Text(
-                      'Log Out',
-                      style: TextStyle(color: Colors.white70),
-                    ),
+                    Text('Log Out', style: TextStyle(color: Colors.white70)),
                   ],
                 ),
               ),
@@ -311,9 +313,7 @@ class _TopBar extends StatelessWidget {
         children: [
           Text(
             'Dashboard',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
+            style: Theme.of(context).textTheme.titleLarge
                 ?.copyWith(fontWeight: FontWeight.bold, color: sidebarColor),
           ),
           const Spacer(),
@@ -344,10 +344,14 @@ class _TopBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Jimmy D. Abenoja',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-              Text('Faculty',
-                  style: TextStyle(fontSize: 11, color: Colors.grey)),
+              Text(
+                'Jimmy D. Abenoja',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+              ),
+              Text(
+                'Faculty',
+                style: TextStyle(fontSize: 11, color: Colors.grey),
+              ),
             ],
           ),
         ],
@@ -382,8 +386,10 @@ class _WelcomeBanner extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Good Morning,',
-              style: TextStyle(fontSize: 15, color: Colors.white70)),
+          const Text(
+            'Good Morning,',
+            style: TextStyle(fontSize: 15, color: Colors.white70),
+          ),
           const SizedBox(height: 2),
           const Text(
             'Jimmy D. Abenoja!',
@@ -396,10 +402,7 @@ class _WelcomeBanner extends StatelessWidget {
           const SizedBox(height: 6),
           const Text(
             'Track. Manage. Advance.',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 6),
           const Text(
@@ -424,22 +427,21 @@ class _WelcomeBanner extends StatelessWidget {
   }
 
   static Widget _chip(IconData icon, String label) => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.2),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.white38),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 14, color: Colors.white),
-            const SizedBox(width: 6),
-            Text(label,
-                style: const TextStyle(fontSize: 12, color: Colors.white)),
-          ],
-        ),
-      );
+    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+    decoration: BoxDecoration(
+      color: Colors.white.withValues(alpha: 0.2),
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(color: Colors.white38),
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 14, color: Colors.white),
+        const SizedBox(width: 6),
+        Text(label, style: const TextStyle(fontSize: 12, color: Colors.white)),
+      ],
+    ),
+  );
 }
 
 class _StatCard extends StatelessWidget {
@@ -474,8 +476,10 @@ class _StatCard extends StatelessWidget {
         children: [
           Icon(icon, color: accent, size: 22),
           const SizedBox(height: 10),
-          Text(label,
-              style: const TextStyle(fontSize: 12, color: Colors.black54)),
+          Text(
+            label,
+            style: const TextStyle(fontSize: 12, color: Colors.black54),
+          ),
           const SizedBox(height: 4),
           Text(
             value,
@@ -515,10 +519,14 @@ class _RecentRecordsCard extends StatelessWidget {
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Recent Travel Records',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-              Text('View All',
-                  style: TextStyle(fontSize: 12, color: Colors.grey)),
+              Text(
+                'Recent Travel Records',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              ),
+              Text(
+                'View All',
+                style: TextStyle(fontSize: 12, color: Colors.grey),
+              ),
             ],
           ),
           const SizedBox(height: 12),
@@ -537,12 +545,17 @@ class _RecentRecordsCard extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                      flex: 2, child: Text(record.date, style: _cellStyle)),
+                    flex: 2,
+                    child: Text(record.date, style: _cellStyle),
+                  ),
                   Expanded(
-                      flex: 2,
-                      child: Text(record.destination, style: _cellStyle)),
+                    flex: 2,
+                    child: Text(record.destination, style: _cellStyle),
+                  ),
                   Expanded(
-                      flex: 2, child: Text(record.purpose, style: _cellStyle)),
+                    flex: 2,
+                    child: Text(record.purpose, style: _cellStyle),
+                  ),
                   Expanded(flex: 2, child: _StatusChip(status: record.status)),
                 ],
               ),
@@ -562,13 +575,13 @@ class _HeaderCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Text(
-        label,
-        style: const TextStyle(
-          fontSize: 12,
-          color: Colors.grey,
-          fontWeight: FontWeight.w600,
-        ),
-      );
+    label,
+    style: const TextStyle(
+      fontSize: 12,
+      color: Colors.grey,
+      fontWeight: FontWeight.w600,
+    ),
+  );
 }
 
 enum _Status { approved, pending, rejected }
@@ -603,8 +616,11 @@ class _StatusChip extends StatelessWidget {
       ),
       child: Text(
         label,
-        style:
-            TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.w600),
+        style: TextStyle(
+          fontSize: 12,
+          color: color,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }
@@ -643,10 +659,14 @@ class _AnnouncementsCard extends StatelessWidget {
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Announcements',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-              Text('View All',
-                  style: TextStyle(fontSize: 12, color: Colors.grey)),
+              Text(
+                'Announcements',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              ),
+              Text(
+                'View All',
+                style: TextStyle(fontSize: 12, color: Colors.grey),
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -656,20 +676,31 @@ class _AnnouncementsCard extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(Icons.campaign_outlined,
-                      size: 18, color: Colors.grey),
+                  const Icon(
+                    Icons.campaign_outlined,
+                    size: 18,
+                    color: Colors.grey,
+                  ),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(item.title,
-                            style: const TextStyle(
-                                fontSize: 13, fontWeight: FontWeight.w500)),
+                        Text(
+                          item.title,
+                          style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                         const SizedBox(height: 2),
-                        Text(item.date,
-                            style: const TextStyle(
-                                fontSize: 11, color: Colors.grey)),
+                        Text(
+                          item.date,
+                          style: const TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -705,20 +736,29 @@ class _QuickActionsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Quick Actions',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          const Text(
+            'Quick Actions',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+          ),
           const SizedBox(height: 12),
           _action(Icons.add, 'Add Travel Record'),
           const SizedBox(height: 8),
           _action(Icons.upload_file_outlined, 'Upload Document'),
           const SizedBox(height: 8),
           _action(Icons.bar_chart, 'View Reports'),
+          const SizedBox(height: 8),
+          _action(
+            Icons.note_add_outlined,
+            'File a Report',
+            onTap: () => Navigator.pushNamed(context, AppRoutes.report),
+          ),
         ],
       ),
     );
   }
 
-  Widget _action(IconData icon, String label) => DecoratedBox(
+  Widget _action(IconData icon, String label, {VoidCallback? onTap}) =>
+      DecoratedBox(
         decoration: BoxDecoration(
           gradient: const LinearGradient(
             colors: AppConstants.brandGradient,
@@ -731,7 +771,7 @@ class _QuickActionsCard extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             borderRadius: BorderRadius.circular(24),
-            onTap: () {},
+            onTap: onTap ?? () {},
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               child: Row(
